@@ -25,7 +25,7 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install git
 sudo apt install postgresql postgresql-contrib 
-sudo systemctl start postgresql.service && touch ~/.pgpass && echo "$PG_INFO" > ~/.pgpass
+sudo systemctl start postgresql.service && touch ~/.pgpass && echo "$PG_INFO" >> ~/.pgpass
 touch ~/.bash_profile
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 source ~/.nvm/nvm.sh && nvm install node && nvm use node 
@@ -138,5 +138,9 @@ echo "deb [signed-by=/etc/apt/trusted.gpg.d/ddev.gpg] https://pkg.ddev.com/apt/ 
 sudo apt update && sudo apt install -y ddev
 separator "DDEV version:"
 ddev --version
+
+# Create Workspace
+separator "Creating Workspace:"
+mkdir Repos && mkdir Repos/php && mkdir Repos/js 
 
 separator "Environemnt setup complete"
