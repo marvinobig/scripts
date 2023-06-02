@@ -15,8 +15,9 @@ function separator() {
     echo "$MSG"
 }
 
-separator "Checking for updates and updating"
+separator "Beginning environment setup"
 sudo apt update && sudo apt upgrade
+
 
 # Installing Git, NVM, Node, NPM & PostgreSQL 
 separator "Installing Git, NVM, Node, NPM & PostgreSQL:"
@@ -30,9 +31,11 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 source ~/.nvm/nvm.sh && nvm install node && nvm use node 
 sudo -u postgres createuser --superuser $USER && sudo -u postgres createdb $USER
 
+
 # Print out versions if above steps successful
 separator "Package versions:"
 git --version && nvm --version && node --version && npm --version && psql --version
+
 
 # Configure GIT
 separator "Configuring GIT:"
@@ -44,11 +47,13 @@ git config --global core.editor "$GIT_EDITOR"
 separator "GIT is configured:"
 git config --global --list
 
+
 #Setup Github SSH keygen
 separator "Setup Github SSH keygen:"
 ssh-keygen -t ed25519 -C "$GIT_EMAIL"
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
+
 
 # Install PHP
 separator "Installing PHP:"
@@ -62,6 +67,7 @@ sudo apt install php-gd
 separator "PHP version:"
 php --version
 
+
 # Install composer
 separator "Installing composer:"
 sudo apt update
@@ -74,6 +80,17 @@ echo 'export PATH="$PATH:$HOME/.config/composer/vendor/bin"' >> ~/.bashrc
 separator "Composer version:"
 composer
 
+
+# Install Apache, PhpMyAdmin & MySQL
+separator "Installing Apache, PhpMyAdmin & MySQL:"
+sudo apt update
+sudo apt install apache2
+sudo ufw allow in "Apache"
+sudo systemctl status apache2
+sudo apt install mysql-server -y
+sudo apt install phpmyadmin
+
+
 # Install MKCert
 separator "Installing MKCert:";
 sudo apt update -y 
@@ -85,12 +102,14 @@ sudo mv mkcert /usr/local/bin/
 separator "MKCert version:"
 mkcert --version
 
+
 #Setup MKCert
 separator "Setup MKCert:"
 mkcert -install
 mkcert -CAROOT
 mkcert  mcert.sample.com localhost 127.0.0.1 ::1
 sudo cp ./mcert.sample.com+3* /etc/ssl
+
 
 #Install Docker
 separator "Installing Docker:"
@@ -111,6 +130,7 @@ sudo apt install docker-compose-plugin
 separator "Docker version:"
 docker --version
 
+
 # Install DDEV
 separator "Installing DDEV:"
 curl -fsSL https://pkg.ddev.com/apt/gpg.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/ddev.gpg > /dev/null
@@ -118,3 +138,5 @@ echo "deb [signed-by=/etc/apt/trusted.gpg.d/ddev.gpg] https://pkg.ddev.com/apt/ 
 sudo apt update && sudo apt install -y ddev
 separator "DDEV version:"
 ddev --version
+
+separator "Environemnt setup complete"
