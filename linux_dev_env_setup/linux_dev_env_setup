@@ -141,6 +141,6 @@ ddev --version
 
 # Create Workspace
 separator "Creating Workspace:"
-mkdir Repos && mkdir Repos/php && mkdir Repos/js 
+mkdir "$PARENT_DIR" && mkdir "$PARENT_DIR/$PHP_DIR" && mkdir "$PARENT_DIR/$JS_DIR" 
 
 separator "Environemnt setup complete"
