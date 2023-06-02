@@ -19,7 +19,7 @@ separator "Checking for updates and updating"
 sudo apt update && sudo apt upgrade
 
 # Installing Git, NVM, Node, NPM & PostgreSQL 
-separator "Installing Git, NVM, Node, NPM & PostgreSQL"
+separator "Installing Git, NVM, Node, NPM & PostgreSQL:"
 sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install git
@@ -35,7 +35,7 @@ separator "Package versions:"
 git --version && nvm --version && node --version && npm --version && psql --version
 
 # Configure GIT
-separator "Configuring GIT"
+separator "Configuring GIT:"
 git config --global credential.helper store
 git config --global user.name "$GIT_USERNAME"
 git config --global user.email "$GIT_EMAIL"
@@ -45,13 +45,13 @@ separator "GIT is configured:"
 git config --global --list
 
 #Setup Github SSH keygen
-separator "Setup Github SSH keygen"
+separator "Setup Github SSH keygen:"
 ssh-keygen -t ed25519 -C "$GIT_EMAIL"
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 
 # Install PHP
-separator "Installing PHP"
+separator "Installing PHP:"
 sudo apt install software-properties-common && sudo add-apt-repository ppa:ondrej/php -y
 sudo apt update && sudo apt upgrade -y
 sudo apt install php
@@ -59,11 +59,11 @@ sudo apt install php8.2-xml
 sudo apt install php-curl
 sudo apt install php-sqlite3
 sudo apt install php-gd
-separator "PHP version"
+separator "PHP version:"
 php --version
 
 # Install composer
-separator "Installing composer"
+separator "Installing composer:"
 sudo apt update
 sudo apt install php-cli unzip
 curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
@@ -71,23 +71,50 @@ HASH="$(curl -sS https://composer.github.io/installer.sig)"
 php -r "if (hash_file('SHA384', '/tmp/composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
 echo 'export PATH="$PATH:$HOME/.config/composer/vendor/bin"' >> ~/.bashrc 
-separator "Composer version"
+separator "Composer version:"
 composer
 
 # Install MKCert
-separator "Installing MKCert";
+separator "Installing MKCert:";
 sudo apt update -y 
 sudo apt install wget curl libnss3-tools
 curl -s https://api.github.com/repos/FiloSottile/mkcert/releases/latest| grep browser_download_url  | grep linux-amd64 | cut -d '"' -f 4 | wget -qi -
 mv mkcert-v*-linux-amd64 mkcert
 chmod a+x mkcert
 sudo mv mkcert /usr/local/bin/
-separator "MKCert version"
+separator "MKCert version:"
 mkcert --version
 
 #Setup MKCert
-separator "Setup MKCert"
+separator "Setup MKCert:"
 mkcert -install
 mkcert -CAROOT
 mkcert  mcert.sample.com localhost 127.0.0.1 ::1
 sudo cp ./mcert.sample.com+3* /etc/ssl
+
+#Install Docker
+separator "Installing Docker:"
+sudo apt update
+sudo apt install ca-certificates curl gnupg lsb-release
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io
+sudo docker run hello-world
+sudo groupadd docker
+sudo usermod -aG docker $USER
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
+sudo apt install docker-compose-plugin
+separator "Docker version:"
+docker --version
+
+# Install DDEV
+separator "Installing DDEV:"
+curl -fsSL https://pkg.ddev.com/apt/gpg.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/ddev.gpg > /dev/null
+echo "deb [signed-by=/etc/apt/trusted.gpg.d/ddev.gpg] https://pkg.ddev.com/apt/ * *" | sudo tee /etc/apt/sources.list.d/ddev.list >/dev/null
+sudo apt update && sudo apt install -y ddev
+separator "DDEV version:"
+ddev --version
