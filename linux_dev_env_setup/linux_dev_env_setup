@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 GIT_EMAIL="88102362+marvinobig@users.noreply.github.com"
-GIT_EDITOR="nvim"
 GIT_USERNAME="marvinobig"
 GIT_BRANCH_NAME="main"
 PARENT_DIR="Repos"
-PHP_DIR="php"
+DRUPAL_DIR="drupal"
 JS_DIR="js"
+NET_DIR="csharp"
 PG_INFO="*:*:*:*:password"
 
 function separator() {
@@ -55,6 +55,18 @@ eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 
 
+# Install CSharp
+separator "Installing CSharp:"
+wget https://packages.microsoft.com/config/ubuntu/22.10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
+sudo apt-get update && sudo apt-get install -y dotnet-sdk-7.0
+sudo apt-get install -y aspnetcore-runtime-7.0
+sudo apt-get install -y dotnet-runtime-7.0
+separator "CSharp version:"
+dotnet --info
+
+
 # Install PHP
 separator "Installing PHP:"
 sudo apt install software-properties-common && sudo add-apt-repository ppa:ondrej/php -y
@@ -79,36 +91,6 @@ sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=compose
 echo 'export PATH="$PATH:$HOME/.config/composer/vendor/bin"' >> ~/.bashrc 
 separator "Composer version:"
 composer
-
-
-# Install Apache, PhpMyAdmin & MySQL
-separator "Installing Apache, PhpMyAdmin & MySQL:"
-sudo apt update
-sudo apt install apache2
-sudo ufw allow in "Apache"
-sudo systemctl status apache2
-sudo apt install mysql-server -y
-sudo apt install phpmyadmin
-
-
-# Install MKCert
-separator "Installing MKCert:";
-sudo apt update -y 
-sudo apt install wget curl libnss3-tools
-curl -s https://api.github.com/repos/FiloSottile/mkcert/releases/latest| grep browser_download_url  | grep linux-amd64 | cut -d '"' -f 4 | wget -qi -
-mv mkcert-v*-linux-amd64 mkcert
-chmod a+x mkcert
-sudo mv mkcert /usr/local/bin/
-separator "MKCert version:"
-mkcert --version
-
-
-#Setup MKCert
-separator "Setup MKCert:"
-mkcert -install
-mkcert -CAROOT
-mkcert  mcert.sample.com localhost 127.0.0.1 ::1
-sudo cp ./mcert.sample.com+3* /etc/ssl
 
 
 #Install Docker
@@ -141,6 +123,6 @@ ddev --version
 
 # Create Workspace
 separator "Creating Workspace:"
-mkdir "$PARENT_DIR" && mkdir "$PARENT_DIR/$PHP_DIR" && mkdir "$PARENT_DIR/$JS_DIR" 
+mkdir "$PARENT_DIR" && mkdir "$PARENT_DIR/$DRUPAL_DIR" && mkdir "$PARENT_DIR/$JS_DIR" && mkdir "$PARENT_DIR/$NET_DIR"
 
 separator "Environemnt setup complete"
