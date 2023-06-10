@@ -3,7 +3,7 @@
 GIT_EMAIL="88102362+marvinobig@users.noreply.github.com"
 GIT_USERNAME="marvinobig"
 GIT_BRANCH_NAME="main"
-PARENT_DIR="Repos"
+PARENT_DIR="repos"
 DRUPAL_DIR="drupal"
 JS_DIR="js"
 NET_DIR="csharp"
@@ -119,6 +119,6 @@ ddev --version
 
 # Create Workspace
 separator "Creating Workspace:"
-mkdir "$PARENT_DIR" && mkdir "$PARENT_DIR/$DRUPAL_DIR" && mkdir "$PARENT_DIR/$JS_DIR" && mkdir "$PARENT_DIR/$NET_DIR"
+mkdir "../../$PARENT_DIR" && mkdir "../../$PARENT_DIR/$DRUPAL_DIR" && mkdir "../../$PARENT_DIR/$JS_DIR" && mkdir "../../$PARENT_DIR/$NET_DIR"
 
 separator "Environemnt setup complete"
