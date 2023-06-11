@@ -12,12 +12,8 @@ Script to setup my linux dev environment.
 - PHP
 - SQLite
 - Composer
-- MKCert
 - Docker
 - DDEV
-- Terraform
-- Neovim
-- dbeaver-ce
 
 ## What is Being Created
 
