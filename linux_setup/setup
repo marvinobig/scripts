@@ -80,6 +80,7 @@ separator "Composer version:"
 composer
 
 
+# Install Apache, MySQL & PhpMyAdmin
 separator "Installing Apache, MySQL & PhpMyAdmin:"
 sudo apt update
 sudo apt install apache2
