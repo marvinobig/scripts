@@ -80,6 +80,15 @@ separator "Composer version:"
 composer
 
 
+separator "Installing Apache, MySQL & PhpMyAdmin:"
+sudo apt update
+sudo apt install apache2
+sudo ufw allow in "Apache"
+sudo systemctl status apache2
+sudo apt install mysql-server -y
+sudo apt install phpmyadmin
+
+
 #Install Docker
 separator "Installing Docker:"
 sudo apt update
