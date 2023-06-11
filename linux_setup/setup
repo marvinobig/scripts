@@ -118,6 +118,7 @@ sudo apt update && sudo apt install -y ddev
 separator "DDEV version:"
 ddev --version
 
+
 # Create Workspace
 separator "Creating Workspace:"
 mkdir "../../$PARENT_DIR" && mkdir "../../$PARENT_DIR/$PHP_DIR" && mkdir "../../$PARENT_DIR/$JS_DIR"
