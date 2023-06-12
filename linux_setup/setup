@@ -6,6 +6,7 @@ GIT_BRANCH_NAME="main"
 PARENT_DIR="repos"
 PHP_DIR="php"
 JS_DIR="js"
+CSHARP_DIR="csharp"
 PG_INFO="*:*:*:*:password"
 
 function separator() {
@@ -118,6 +119,6 @@ ddev --version
 
 # Create Workspace
 separator "Creating Workspace:"
-mkdir "../../$PARENT_DIR" && mkdir "../../$PARENT_DIR/$PHP_DIR" && mkdir "../../$PARENT_DIR/$JS_DIR"
+mkdir "../../$PARENT_DIR" && mkdir "../../$PARENT_DIR/$PHP_DIR" && mkdir "../../$PARENT_DIR/$JS_DIR" && mkdir "../../$PARENT_DIR/$CSHARP_DIR"
 
 separator "Environemnt setup complete"
