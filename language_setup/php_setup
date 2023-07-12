@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+PARENT_DIR="repos"
+PHP_DIR="php"
+
+function separator() {
+    local MSG=${1:-" "}
+    echo " "
+    echo "$MSG"
+}
+
+
+separator "Beginning PHP setup"
+sudo apt update && sudo apt upgrade
+
+
+# Install PHP
+separator "Installing PHP:"
+sudo apt install software-properties-common && sudo add-apt-repository ppa:ondrej/php -y
+sudo apt update && sudo apt upgrade -y
+sudo apt install php
+sudo apt install php8.2-xml
+sudo apt install php-curl
+sudo apt install php-sqlite3
+sudo apt install php-gd
+separator "PHP version:"
+php --version
+
+
+# Install composer
+separator "Installing composer:"
+sudo apt update
+sudo apt install php-cli unzip
+curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
+HASH="$(curl -sS https://composer.github.io/installer.sig)"
+php -r "if (hash_file('SHA384', '/tmp/composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+echo 'export PATH="$PATH:$HOME/.config/composer/vendor/bin"' >> ~/.bashrc 
+separator "Composer version:"
+composer
+
+
+# Install DDEV
+separator "Installing DDEV:"
+curl -fsSL https://pkg.ddev.com/apt/gpg.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/ddev.gpg > /dev/null
+echo "deb [signed-by=/etc/apt/trusted.gpg.d/ddev.gpg] https://pkg.ddev.com/apt/ * *" | sudo tee /etc/apt/sources.list.d/ddev.list >/dev/null
+sudo apt update && sudo apt install -y ddev
+separator "DDEV version:"
+ddev --version
+
+mkdir "../../$PARENT_DIR/$PHP_DIR"
+
+separator "PHP setup complete"

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+PARENT_DIR="repos"
+CSHARP_DIR="csharp"
+
+function separator() {
+    local MSG=${1:-" "}
+    echo " "
+    echo "$MSG"
+}
+
+separator "CSharp environment setup"
+sudo apt update && sudo apt upgrade
+
+# Install CSharp & Dotnet
+separator "Installing CSharp & Dotnet:"
+sudo apt install dotnet-sdk-7.0 
+sudo apt install dotnet-sdk-6.0 
+dotnet --info
+
+mkdir "../../$PARENT_DIR/$CSHARP_DIR"
+
+separator "CSharp setup complete"

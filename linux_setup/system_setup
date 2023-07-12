@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+GIT_EMAIL="88102362+marvinobig@users.noreply.github.com"
+GIT_USERNAME="marvinobig"
+GIT_BRANCH_NAME="main"
+PARENT_DIR="repos"
+
+
+function separator() {
+    local MSG=${1:-" "}
+    echo " "
+    echo "$MSG"
+}
+
+
+separator "Beginning environment setup"
+sudo apt update && sudo apt upgrade
+
+
+# Install Git
+separator "Installing Git:"
+sudo apt-get install git
+git --version 
+
+
+# Configure GIT
+separator "Configuring GIT:"
+git config --global credential.helper store
+git config --global user.name "$GIT_USERNAME"
+git config --global user.email "$GIT_EMAIL"
+git config --global init.defaultBranch "$GIT_BRANCH_NAME" 
+git config --global core.editor "$GIT_EDITOR"
+separator "GIT is configured:"
+git config --global --list
+
+
+# Setup Github SSH keygen
+separator "Setup Github SSH keygen:"
+ssh-keygen -t ed25519 -C "$GIT_EMAIL"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
+
+# Create Workspace
+separator "Creating Parent Workspace:"
+mkdir "../../$PARENT_DIR"
+
+separator "System setup complete"

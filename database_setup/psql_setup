@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+PG_INFO="*:*:*:*:password"
+
+
+function separator() {
+    local MSG=${1:-" "}
+    echo " "
+    echo "$MSG"
+}
+
+
+separator "PSQL environment setup"
+sudo apt update && sudo apt upgrade
+
+
+# Install PostgreSQL 
+separator "Installing PostgreSQL:"
+sudo apt install postgresql postgresql-contrib 
+sudo systemctl start postgresql.service && touch ~/.pgpass && echo "$PG_INFO" >> ~/.pgpass
+sudo -u postgres createuser --superuser $USER && sudo -u postgres createdb $USER
+psql --version
+
+separator "PSQL setup complete"
