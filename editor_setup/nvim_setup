@@ -6,8 +6,38 @@ function separator() {
     echo "$MSG"
 }
 
+VIM_FEATURES=("number" "autoindent" "mouse=a" "cc=80" "wildmode=longest,list" "clipboard=unnamedplus" "cursorline" "ttyfast" "spell" "tabstop=4" "incsearch" "hlsearch" "mouse=v" "showmatch" "ignorecase" "nocompatible" "encodng=UTF-8")
+VIM_PLUGINS=("dracula/vim" "ryanoasis/vim-devicons" "SirVer/ultisnips" "honza/vim-snippets" "scrooloose/nerdtree" "preservim/nerdcommenter" "mhinz/vim-startify")
+
 
 separator "NEOVIM setup"
 sudo apt update && sudo apt upgrade
-
 sudo apt install neovim
+mkdir .config && cd .config && mkdir nvim && cd nvim & touch init.vim
+
+
+separator "Configuring NEOVIM"
+for feature in ${VIM_FEATURES[@]}; do
+  echo "set $feature" >> init.vim
+done
+
+echo "syntax on" >> init.vim
+echo "filetype plugin indent on" >> init.vim
+echo "filetype plugin on" >> init.vim
+
+
+separator "NEOVIM plugin manager installing"
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+       
+echo "" >> init.vim
+echo "call plug#begin()" >> init.vim
+
+for feature in ${VIM_FEATURES[@]}; do
+  echo "Plug '$feature'" >> init.vim
+done
+
+echo "Plug 'neoclide/coc.nvim', {'branch': 'release'}" >> init.vim
+echo "call plug#end()" >> init.vim
+echo "" >> init.vim
