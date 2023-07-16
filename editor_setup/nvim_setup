@@ -34,8 +34,8 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 echo "" >> init.vim
 echo "call plug#begin()" >> init.vim
 
-for feature in ${VIM_FEATURES[@]}; do
-  echo "Plug '$feature'" >> init.vim
+for plugin in ${VIM_PLUGINS[@]}; do
+  echo "Plug '$plugin'" >> init.vim
 done
 
 echo "Plug 'neoclide/coc.nvim', {'branch': 'release'}" >> init.vim
