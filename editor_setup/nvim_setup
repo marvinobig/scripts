@@ -14,7 +14,7 @@ separator "NEOVIM setup"
 cd
 sudo apt update && sudo apt upgrade
 sudo apt install neovim
-mkdir .config && cd .config && mkdir nvim && cd nvim & touch init.vim
+cd .config && mkdir nvim && cd nvim & touch init.vim
 
 
 separator "Configuring NEOVIM"
