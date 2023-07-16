@@ -41,6 +41,15 @@ eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 
 
+# Setup Github SSH keygen
+separator "Installing zsh & oh-my-zsh:"
+sudo apt-get install -y zsh
+sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+# change ZSH_THEME by adding "powerlevel10k/powerlevel10k" in .zhrc
+# in .p10k.zsh file you can configure the theme
+
+
 # Create Workspace
 separator "Creating Parent Workspace:"
 mkdir "../../$PARENT_DIR"
