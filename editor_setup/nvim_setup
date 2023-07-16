@@ -41,3 +41,6 @@ done
 echo "Plug 'neoclide/coc.nvim', {'branch': 'release'}" >> init.vim
 echo "call plug#end()" >> init.vim
 echo "" >> init.vim
+
+cd
+separator "Finish NEOVIM setup"
