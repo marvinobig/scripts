@@ -52,6 +52,14 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
 
 # Create Workspace
 separator "Creating Parent Workspace:"
-mkdir "../../$PARENT_DIR"
+mkdir "../../$PARENT_DIR" && cd $PARENT_DIR
+
+
+# Install Nerd Fonts
+separator "Installing nerd fonts:"
+git clone https://github.com/ryanoasis/nerd-fonts.git
+cd nerd-fonts
+bash install.sh Hack
+
 
 separator "System setup complete"
