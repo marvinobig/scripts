@@ -7,7 +7,7 @@ function separator() {
 }
 
 VIM_FEATURES=("number" "autoindent" "mouse=a" "cc=80" "wildmode=longest,list" "clipboard=unnamedplus" "cursorline" "ttyfast" "spell" "tabstop=4" "incsearch" "hlsearch" "mouse=v" "showmatch" "ignorecase" "nocompatible" "encoding=UTF-8")
-VIM_PLUGINS=("dracula/vim" "ryanoasis/vim-devicons" "SirVer/ultisnips" "honza/vim-snippets" "scrooloose/nerdtree" "preservim/nerdcommenter" "mhinz/vim-startify")
+VIM_PLUGINS=("dracula/vim" "ryanoasis/vim-devicons" "SirVer/ultisnips" "honza/vim-snippets" "scrooloose/nerdtree" "preservim/nerdcommenter" "mhinz/vim-startify" "ap/vim-css-color" "vim-airline/vim-airline" "sheerun/vim-polyglot" "jiangmiao/auto-pairs" "plasticboy/vim-markdown" "airblade/vim-gitgutter" "morhetz/gruvbox")
 
 
 separator "NEOVIM setup"
