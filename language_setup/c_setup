@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+PARENT_DIR="repos"
+C_DIR="csharp"
+
+function separator() {
+    local MSG=${1:-" "}
+    echo " "
+    echo "$MSG"
+}
+
+
+separator "C environment setup"
+sudo apt update && sudo apt upgrade
+
+
+# Install C
+separator "Installing C:"
+sudo apt install gcc
+sudo apt install make
+
+
+mkdir "../../$PARENT_DIR/$C_DIR"
+
+separator "C setup complete"
